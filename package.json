@@ -1,0 +1,23 @@
+{
+  "name": "projectone",
+  "version": "1.0.0",
+  "description": "test",
+  "keywords": [
+    "jwks"
+  ],
+  "homepage": "https://github.com/alat414/UNT-CSCE-3550-Project-One#readme",
+  "bugs": {
+    "url": "https://github.com/alat414/UNT-CSCE-3550-Project-One/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alat414/UNT-CSCE-3550-Project-One.git"
+  },
+  "license": "UNLICENSED",
+  "author": "gustavo",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "print"
+  }
+}
