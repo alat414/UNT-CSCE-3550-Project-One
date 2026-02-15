@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
+console.log('Hi')
 app.get('/', (req, res) => 
 {
     res.send("Gustavo Project 1 JWK Token");
