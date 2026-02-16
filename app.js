@@ -24,7 +24,8 @@ app.post('/login', (req, res) =>
 
 function authenticateToken(req, res, nex)
 {
-    
+    const authHeader = req.headers['authorization']
+    Bearer TOKEN
 
 }
 app.listen(port, () => 
