@@ -46,7 +46,7 @@ function authenticateToken(req, res, nex)
     {
         if (err) return res.sendStatus(403)
         req.user = user
-        next() 
+        nex() 
     })
 
 }
