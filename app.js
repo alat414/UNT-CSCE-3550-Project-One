@@ -1,11 +1,22 @@
 const express = require('express');
 const app = express();
 const port = 8080;
+const jwt = require('jsonwebtoken')
 
-console.log('Hi')
-app.get('/', (req, res) => 
+app.use(express.json())
+app.get('/posts', (req, res) => 
 {
-    res.send("Gustavo Project 1 JWK Token");
+    res.json(posts);
+
+});
+
+app.post('/login', (req, res) => 
+{
+    const username = req.body.username
+    const user = { name: username }
+
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+    res.json({ accessToken: accessToken});
 
 });
 
