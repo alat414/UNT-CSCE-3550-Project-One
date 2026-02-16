@@ -6,7 +6,7 @@ const port = 8080;
 const jwt = require('jsonwebtoken')
 
 app.use(express.json())
-app.get('/posts', (req, res) => 
+app.get('/posts', authenticateToken, (req, res) => 
 {
     res.json(posts);
 
@@ -22,6 +22,11 @@ app.post('/login', (req, res) =>
 
 });
 
+function authenticateToken(req, res, nex)
+{
+    
+
+}
 app.listen(port, () => 
 {
     console.log(`Example app listening at http://localhost:${8080}`);
