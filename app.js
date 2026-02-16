@@ -24,7 +24,8 @@ app.post('/login', (req, res) =>
 
 function authenticateToken(req, res, nex)
 {
-    const authHeader = req.headers['authorization']
+    const authHeader = req.headers['authorization'] 
+    const token = authHeader && authHeader.split(' ')[1]
     Bearer TOKEN
 
 }
