@@ -26,7 +26,8 @@ function authenticateToken(req, res, nex)
 {
     const authHeader = req.headers['authorization'] 
     const token = authHeader && authHeader.split(' ')[1]
-    Bearer TOKEN
+    
+    if (token == null) return res.sendStatus(401)
 
 }
 app.listen(port, () => 
