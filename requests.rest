@@ -1,5 +1,6 @@
 GET http://localhost:8080/posts
-
+Authorization: Bearer
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzEyMDQ4OTJ9.xErpl3JiTG4KQcwbbGTFrzXJ72wAinODDnQJtgMFido
 ###
 
 POST http://localhost:8080/login
