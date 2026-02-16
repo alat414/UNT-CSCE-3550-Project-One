@@ -1,8 +1,10 @@
-GET http://localhost:808/POST 
- HTTP/1.1
-header name: header value
+GET http://localhost:8080/posts
 
-content
 ###
 
-POST 
+POST http://localhost:8080/login
+Content-Type:  application/json
+
+{
+    "username": "Nanna"
+}
