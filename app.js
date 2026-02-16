@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 app.use(express.json())
 app.get('/posts', authenticateToken, (req, res) => 
 {
-    res.json(posts);
+    res.json(posts.filter(post => post.username === req.user.name));
 
 });
 
@@ -33,7 +33,7 @@ function authenticateToken(req, res, nex)
     {
         if (err) return res.sendStatus(403)
         req.user = user
-        next()
+        next() 
     })
 
 }
