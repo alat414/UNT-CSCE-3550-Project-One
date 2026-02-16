@@ -1,6 +1,12 @@
 GET http://localhost:8080/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzEyMjA4MTIsImV4cCI6MTc3MTIyMDgzMn0.waRfx4sw1tx7Z-smJqyTbV3XxdBrlQBP2dfo3jGylY4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzEyNjIxNzMsImV4cCI6MTc3MTI2MjE5M30.WmIwo80w4vJa_xWFG0_hOIJso_U-utzc9jNJPpg1ZsY
+###
 
+POST http://localhost:8080/token
+Content-Type: application/json
+{
+    "token" : ""
+}
 ###
 
 POST http://localhost:8080/login
