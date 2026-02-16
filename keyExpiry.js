@@ -11,11 +11,28 @@ app.use(express.json())
 app.post('/token', (req, res) =>
 {
     const refreshToken = req.body.token
+
+    if (!refreshToken) 
+    {
+        return res.sendStatus(401)
+    }
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err)
+        {
+            return res.sendStatus(403)
+        }
+        const accessToken = generateToken({ name: user.name})
+        res.json({ accessToken: accessToken})
+    })
 })
 
 app.post('/login', (req, res) => 
 {
     const username = req.body.username
+    if (!username){
+        return res.status(400).json({ error: 'Username is required '})
+    }
     const user = { name: username }
 
     const accessToken = generateToken(user)
