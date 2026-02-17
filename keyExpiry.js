@@ -6,6 +6,8 @@ const app = express();
 const port = 8080;
 const jwt = require('jsonwebtoken')
 
+const { authenticateToken, posts } = require('./app.js')
+
 app.use(express.json())
 
 const posts = 
@@ -46,10 +48,11 @@ app.post('/login', (req, res) =>
     if (!username){
         return res.status(400).json({ error: 'Username is required '})
     }
+    
     const user = { name: username }
-
     const accessToken = generateToken(user)
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+    
     res.json({ accessToken: accessToken, refreshToken: refreshToken});
 
 });
@@ -62,4 +65,5 @@ function generateToken(user)
 app.listen(port, () => 
 {
     console.log(`Example app listening at http://localhost:${8080}`);
+    console.log(`Using authenticateToken from app.js`);
 });
