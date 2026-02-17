@@ -50,6 +50,13 @@ function authenticateToken(req, res, nex)
     })
 
 }
+
+module.exports = 
+{
+    app, 
+    authenticateToken,
+    posts
+}
 app.listen(port, () => 
 {
     console.log(`Example app listening at http://localhost:${8080}`);
