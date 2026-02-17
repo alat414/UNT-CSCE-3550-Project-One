@@ -24,6 +24,18 @@ class keyStorage
             activeStatus: true
         }
 
+        this.keys.set(keyID, keyData);
+        this.activeKeyID = keyID;
+
+        setTimeout(() => 
+        {
+            this.deactivateKey(keyID);
+
+        }, expiresInMinutes * 60 * 24)
+
+        return keyID;
+
+
 
     }
 
