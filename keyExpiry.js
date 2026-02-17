@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const express = require('express');
 const app = express();
-const port = 8080;
+const port = 8081;
 const jwt = require('jsonwebtoken')
 
 const { authenticateToken, posts } = require('./app.js')
@@ -60,6 +60,6 @@ function generateToken(user)
 
 app.listen(port, () => 
 {
-    console.log(`Example app listening at http://localhost:${8080}`);
+    console.log(`Example app listening at http://localhost:${8081}`);
     console.log(`Using authenticateToken from app.js`);
 });
