@@ -10,19 +10,6 @@ const { authenticateToken, posts } = require('./app.js')
 
 app.use(express.json())
 
-const posts = 
-[
-    {
-        username: 'Nanna',
-        title: 'lead singer'
-    },
-    {
-        username: 'Raggi',
-        title: 'lead singer two'
-    }
-
-]
-
 app.post('/token', (req, res) =>
 {
     const refreshToken = req.body.token
@@ -56,6 +43,15 @@ app.post('/login', (req, res) =>
     res.json({ accessToken: accessToken, refreshToken: refreshToken});
 
 });
+
+app.get('/posts', authenticateToken, (req, res) => 
+{
+    console.log('GET /post - User:' , req.user.name);
+
+    const userPosts = posts.filter(post => post.username === req.user.name);
+
+    res.json(userPosts);
+})
 
 function generateToken(user)
 {
