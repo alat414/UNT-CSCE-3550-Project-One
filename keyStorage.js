@@ -58,6 +58,16 @@ class keyStorage
         return this.activeKeyID ? this.getKey(this.activeKeyID) : null;
     }
 
+    deactivateKey(keyID)
+    {
+        const key = this.keys.get(keyID);
+        if(key)
+        {
+            key.activeStatus = false;
+            console.log(`Key $(keyID) expired and deactivated`);
+        }
+
+    }
 
 
 }
