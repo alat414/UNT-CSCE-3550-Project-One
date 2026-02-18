@@ -20,7 +20,23 @@ app.get('/.known/jwks.json', (req, res) =>
         keys: []
     };
     
-})
+    for (const [kid, keyData] of keyStorage.keys)
+    {
+        if(keyData.activeStatus && new Date() <= keyData.expiresIn)
+        {
+            jwks.keys.push
+            ({
+                kid: kid,
+                kty: "oct",
+                alg: "HS256",
+                use: "sig",
+
+                exp: Math.floor(keyData.expiresIn.getTime() / 1000)
+            });
+        }
+    }
+    res.json(jwks);
+});
 
 app.post('/token', (req, res) =>
 {
