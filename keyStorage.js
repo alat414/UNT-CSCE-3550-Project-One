@@ -34,9 +34,18 @@ class keyStorage
         }, expiresInMinutes * 60 * 24)
 
         return keyID;
+    }
 
-
+    getKey(keyID)
+    {
+        const key = this.keys.get(keyID);
+        if (!key)
+        {
+            return null;
+        }
 
     }
+
+
 
 }
