@@ -53,6 +53,11 @@ class keyStorage
         return key.secret;
     }
 
+    getCurrentKey()
+    {
+        return this.activeKeyID ? this.getKey(this.activeKeyID) : null;
+    }
+
 
 
 }
