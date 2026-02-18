@@ -13,6 +13,15 @@ app.use(express.json())
 
 keyStorage.generateNewKey(10);
 
+app.get('/.known/jwks.json', (req, res) => 
+{
+    const jwks = 
+    {
+        keys: []
+    };
+    
+})
+
 app.post('/token', (req, res) =>
 {
     const refreshToken = req.body.token
