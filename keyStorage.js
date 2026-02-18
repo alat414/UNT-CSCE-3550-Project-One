@@ -67,6 +67,23 @@ class keyStorage
             console.log(`Key $(keyID) expired and deactivated`);
         }
 
+        if (keyID === this.activeKeyID)
+        {
+            this.passFollowingKey();
+        }
+    }
+
+    passFollowingKey()
+    {
+        for (const [id, key] of this.keys)
+        {
+            if (key.isActive && new Date() <= key.deactivateKey)
+            {
+                this.activeKeyID = id;
+                console.log(` Promoted key $(id) as active`);
+                return;
+            }
+        }
     }
 
 
