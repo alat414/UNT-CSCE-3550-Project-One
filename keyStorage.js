@@ -84,7 +84,19 @@ class keyStorage
                 return;
             }
         }
+        console.log('No active keys available')
+        this.activeKeyID = null;
     }
 
-
+    removeExpiredKeys()
+    {
+        const now = new Date();
+        for (const [id, key] of this.keys)
+        {
+            if (now > key.expiresAt)
+            {
+                this.deactivateKey(id);
+            }
+        }
+    }
 }
