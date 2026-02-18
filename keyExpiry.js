@@ -5,10 +5,13 @@ const express = require('express');
 const app = express();
 const port = 8081;
 const jwt = require('jsonwebtoken')
+const keyStorage = require('./keyStorage');
 
 const { authenticateToken, posts } = require('./app.js')
 
 app.use(express.json())
+
+keyStorage.generateNewKey(10);
 
 app.post('/token', (req, res) =>
 {
