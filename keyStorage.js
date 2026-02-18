@@ -44,6 +44,13 @@ class keyStorage
             return null;
         }
 
+        if (new Date() > key.expiresAt)
+        {
+            this.deactivateKey(keyID);
+            return null;
+        }
+
+        return key.secret;
     }
 
 
