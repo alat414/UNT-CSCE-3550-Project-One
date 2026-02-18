@@ -100,3 +100,5 @@ class keyStorage
         }
     }
 }
+
+module.exports = new keyStorage();
