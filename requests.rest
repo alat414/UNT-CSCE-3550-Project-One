@@ -3,21 +3,12 @@ GET http://localhost:8081/health
 
 ### Checking JWKS endpoint
 GET http://localhost:8081/.well-known/jwks.json
+
 ### Check key status
 GET http://localhost:8081/key-status
 
-### Use token - middleware will verify with correct key
-GET http://localhost:8081/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzEzMDgwNzUsImV4cCI6MTc3MTMwODA5NX0.-AIsJOdX_K6-3189oCwkD_ueI54enj9kFKwr0RUZMAI
 
-### Verifying key status
-POST http://localhost:8081/token
-Content-Type: application/json
-
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzEzMDgwNDZ9.6bOIF0x2lzwO3JuntDxSv47AUQiz7F0pkNUsir49RyQ"
-}
-
+### Authentication
 ### Login - get token with kid
 POST http://localhost:8081/login
 Content-Type:  application/json
@@ -26,5 +17,20 @@ Content-Type:  application/json
     "username": "Nanna"
 }
 
-### Rotate keys (simulate time passing)
-POST http://localhost:8081/posts
+### Obtaining posts with token
+GET http://localhost:8081/posts
+Authorization: Bearer 
+
+### Verifying key status
+POST http://localhost:8081/token
+Content-Type: application/json
+
+{
+    "token": ""
+}
+
+### Obtaining posts with token with new token
+GET http://localhost:8081/posts
+Authorization: Bearer 
+
+### Maintenance
