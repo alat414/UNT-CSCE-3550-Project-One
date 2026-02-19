@@ -13,14 +13,14 @@ class keyStorage
         const keyID = `key-${new Date().toISOString().split('T')[0]}-${crypto.randomBytes(4).toString('hex')}`;
         const secret = crypto.randomBytes(64).toString('hex');
         const expiresIn = new Date();
-        expiresAt.setDate(expiresAt.getDate() + expiresInMinutes);
+        expiresIn.setDate(expiresAt.getDate() + expiresInMinutes);
 
         const keyData =
         {
             id: keyID,
             secretMessage: secret,
             createdTime: new Date(),
-            expiringTime: expiresAt,
+            expiringTime: expiresIn,
             activeStatus: true
         }
 
@@ -44,7 +44,7 @@ class keyStorage
             return null;
         }
 
-        if (new Date() > key.expiresAt)
+        if (new Date() > key.expiresIn)
         {
             this.deactivateKey(keyID);
             return null;
@@ -93,7 +93,7 @@ class keyStorage
         const now = new Date();
         for (const [id, key] of this.keys)
         {
-            if (now > key.expiresAt)
+            if (now > key.expiresIn)
             {
                 this.deactivateKey(id);
             }
