@@ -35,6 +35,7 @@ app.get('/.well-known/jwks.json', (req, res) =>
             });
         }
     }
+    console.log(` Returning ${jwks.keys.length} active keys`);
     res.json(jwks);
 });
 
@@ -66,9 +67,6 @@ app.post('/login', (req, res) =>
     }
     
     const user = { name: username }
-    const accessToken = generateToken(user)
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-
     const currentKey = keyStorage.getCurrentKey();
     const activeKeyID = keyStorage.activeKeyID;
     
@@ -77,12 +75,12 @@ app.post('/login', (req, res) =>
         return res.status(500).json({ error: 'No key available' });
     }
 
-    const token = jwt.sign
+    const accessToken = jwt.sign
     (
         user,
         currentKey,
         {
-            expiresIn: '10m',
+            expiresIn: '30s',
             header: 
             {
                 kid: activeKeyID,
@@ -90,6 +88,8 @@ app.post('/login', (req, res) =>
             }
         }
     );
+
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET || 'refresh-secret');
 
     res.json
     ({ 
@@ -143,6 +143,17 @@ app.get('/key-status', (req, res) =>
     res.json(status);
 
 });
+
+app.get('/health', (req, res) =>
+{
+    res.json({
+        status: 'OK',
+        timestamp: new Date(),
+        activeKeyID: keyStorage.activeKeyID,
+        keyCount: keyStorage.keys.size
+    });
+});
+
 function generateToken(user)
 {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '60s'})
@@ -152,4 +163,18 @@ app.listen(port, () =>
 {
     console.log(`Example app listening at http://localhost:${8081}`);
     console.log(`Using authenticateToken from app.js`);
+
+    console.log
+    (`
+        KeyExpiry server running at http://localhost:${port}
+        Available endpoints:
+        - GET /health
+        - GET /.well-known/jwks.json
+        - GET /key-status
+        - POST /login
+        - POST /token
+        - GET /posts
+        - POST /rotate-keys
+    
+        `);
 });
