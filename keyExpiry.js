@@ -59,8 +59,9 @@ app.post('/token', (req, res) =>
 
 app.post('/login', (req, res) => 
 {
-    const username = req.body.username
-    if (!username){
+    const username = req.body.username;
+    if (!username)
+    {
         return res.status(400).json({ error: 'Username is required '})
     }
     
@@ -75,8 +76,28 @@ app.post('/login', (req, res) =>
     {
         return res.status(500).json({ error: 'No key available' });
     }
-    
-    res.json({ accessToken: accessToken, refreshToken: refreshToken});
+
+    const token = jwt.sign
+    (
+        user,
+        currentKey,
+        {
+            expireIn: '10m',
+            header: 
+            {
+                kid: activeKeyID,
+                alg: 'H256'
+            }
+        }
+    );
+
+    res.json
+    ({ 
+        accessToken: accessToken, 
+        refreshToken: refreshToken,
+        keyID: activeKeyID,
+        keyExpiresAt: keyStorage.keys.get(activeKeyID).expiresIn
+    });
 
 });
 
