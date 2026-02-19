@@ -4,7 +4,7 @@ GET http://localhost:8081/health
 ### Checking JWKS endpoint
 GET http://localhost:8081/.well-known/jwks.json
 ### Check key status
-GET http://localhost:8081/.localhost:8081/.well-known/jwks.json
+GET http://localhost:8081/key-status
 
 ### Use token - middleware will verify with correct key
 GET http://localhost:8081/posts
@@ -27,4 +27,4 @@ Content-Type:  application/json
 }
 
 ### Rotate keys (simulate time passing)
-POST http://localhost:8080/posts
+POST http://localhost:8081/posts
