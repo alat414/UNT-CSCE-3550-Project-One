@@ -117,10 +117,15 @@ app.post('/rotate-keys', (req, res) =>
 
     keyStorage.cleanupExpiredKeys();
 
-    
+    res.json({
+        message: 'Keys rotated successfully',
+        activeKeyID: keyStorage.activeKeyID,
+        activeKeyExpires: keyStorage.keys.get(keyStorage.activeKeyID).expiresIn
+    });
+
+});
 
 
-})
 function generateToken(user)
 {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s'})
