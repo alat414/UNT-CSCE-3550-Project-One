@@ -86,7 +86,7 @@ app.post('/login', (req, res) =>
             header: 
             {
                 kid: activeKeyID,
-                alg: 'H256'
+                alg: 'HS256'
             }
         }
     );
