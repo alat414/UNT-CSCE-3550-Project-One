@@ -34,3 +34,16 @@ GET http://localhost:8081/posts
 Authorization: Bearer 
 
 ### Maintenance
+POST http://localhost:8081/rotate-keys
+Content-Type: application/json
+
+{
+    "expiresIn": 10
+}
+
+### Check key status
+GET http://localhost:8081/key-status
+
+### Try old token after rotation; works if key is not expired
+GET http://localhost:8081/posts
+Authorization: Bearer 
