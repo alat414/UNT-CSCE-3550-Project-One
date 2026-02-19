@@ -1,5 +1,5 @@
 ### Checking JWKS endpoint
-GET http://localhost:8080/.well-known/jwks.json
+GET http://localhost:8081/.well-known/jwks.json
 ###
 GET http://localhost:8081/posts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzEzMDgwNzUsImV4cCI6MTc3MTMwODA5NX0.-AIsJOdX_K6-3189oCwkD_ueI54enj9kFKwr0RUZMAI
