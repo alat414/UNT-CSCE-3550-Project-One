@@ -140,16 +140,7 @@ app.get('/key-status', (req, res) =>
 
         });
     }
-    const newKeyID = keyStorage.generateNewKey(10);
-    console.log(`Key rotated: ${newKeyID} is now active`);
-
-    keyStorage.cleanupExpiredKeys();
-
-    res.json({
-        message: 'Keys rotated successfully',
-        activeKeyID: keyStorage.activeKeyID,
-        activeKeyExpires: keyStorage.keys.get(keyStorage.activeKeyID).expiresIn
-    });
+    res.json(status);
 
 });
 function generateToken(user)
