@@ -67,6 +67,9 @@ app.post('/login', (req, res) =>
     const user = { name: username }
     const accessToken = generateToken(user)
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+
+    const currentKey = keyStorage.getCurrentKey();
+    const activeKeyID = keyStorage.activeKeyID;
     
     res.json({ accessToken: accessToken, refreshToken: refreshToken});
 
