@@ -8,12 +8,12 @@ class keyStorage
         this.validKeyID = null;
     }
 
-    generateNewKey(expiresInMinutes = 1)
+    generateNewKey(expiresInDays = 1)
     {
         const keyID = `key-${new Date().toISOString().split('T')[0]}-${crypto.randomBytes(4).toString('hex')}`;
         const secret = crypto.randomBytes(64).toString('hex');
         const expiresIn = new Date();
-        expiresIn.setDate(expiresIn.getDate() + expiresInMinutes);
+        expiresIn.setDate(expiresIn.getDate() + expiresInDays);
 
         const keyData =
         {
@@ -31,7 +31,7 @@ class keyStorage
         {
             this.deactivateKey(keyID);
 
-        }, expiresInMinutes * 60 * 24)
+        }, expiresInDays * 24 * 60 * 60 * 1000);
 
         return keyID;
     }
