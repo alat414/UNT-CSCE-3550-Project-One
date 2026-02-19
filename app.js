@@ -61,12 +61,21 @@ function authenticateToken(req, res, next)
             message: 'Token was signed with invalid key, retry.'
         });
     }
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => 
+    jwt.verify(token, signingKey, (err, user) => 
     {
-        if (err) return res.sendStatus(403)
-        req.user = user
-        next() 
-    })
+        if (err)
+        {
+            if (err.name === 'TokenExpiredError')
+            {
+                return res.status(403).json({ error: 'Token Expired'});
+            }
+            return res.sendStatus(403).json({ error: 'Invalid Token'});
+
+        } 
+            
+        req.user = user;
+        next();
+    });
 
 }
 
