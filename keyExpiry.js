@@ -71,6 +71,11 @@ app.post('/login', (req, res) =>
     const currentKey = keyStorage.getCurrentKey();
     const activeKeyID = keyStorage.activeKeyID;
     
+    if(!currentKey)
+    {
+        return res.status(500).json({ error: 'No key available' });
+    }
+    
     res.json({ accessToken: accessToken, refreshToken: refreshToken});
 
 });
