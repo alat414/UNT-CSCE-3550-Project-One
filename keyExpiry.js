@@ -82,7 +82,7 @@ app.post('/login', (req, res) =>
         user,
         currentKey,
         {
-            expireIn: '10m',
+            expiresIn: '10m',
             header: 
             {
                 kid: activeKeyID,
