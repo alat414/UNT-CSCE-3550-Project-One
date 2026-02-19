@@ -13,7 +13,7 @@ class keyStorage
         const keyID = `key-${new Date().toISOString().split('T')[0]}-${crypto.randomBytes(4).toString('hex')}`;
         const secret = crypto.randomBytes(64).toString('hex');
         const expiresIn = new Date();
-        expiresIn.setDate(expiresAt.getDate() + expiresInMinutes);
+        expiresIn.setDate(expiresIn.getDate() + expiresInMinutes);
 
         const keyData =
         {
