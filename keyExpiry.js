@@ -13,7 +13,7 @@ app.use(express.json())
 
 keyStorage.generateNewKey(10);
 
-app.get('/.known/jwks.json', (req, res) => 
+app.get('/.well-known/jwks.json', (req, res) => 
 {
     const jwks = 
     {
