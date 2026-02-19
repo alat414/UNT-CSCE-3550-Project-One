@@ -125,7 +125,33 @@ app.post('/rotate-keys', (req, res) =>
 
 });
 
+app.get('/key-status', (req, res) =>
+{
+    const status = [];
+    for (const [id, key] of keyStorage.keys)
+    {
+        status.push({
+            kid: id,
+            createdAt: key.createdAt,
+            expiresIn: key.expiresIn,
+            activeStatus: key.activeStatus,
+            isCurrent: id === keyStorage.activeKeyID,
+            expired: new Date() > key.expiresAt
 
+        });
+    }
+    const newKeyID = keyStorage.generateNewKey(10);
+    console.log(`Key rotated: ${newKeyID} is now active`);
+
+    keyStorage.cleanupExpiredKeys();
+
+    res.json({
+        message: 'Keys rotated successfully',
+        activeKeyID: keyStorage.activeKeyID,
+        activeKeyExpires: keyStorage.keys.get(keyStorage.activeKeyID).expiresIn
+    });
+
+});
 function generateToken(user)
 {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s'})
