@@ -96,7 +96,7 @@ app.post('/login', (req, res) =>
         accessToken: accessToken, 
         refreshToken: refreshToken,
         keyID: activeKeyID,
-        keyExpiresAt: keyStorage.keys.get(activeKeyID).expiresIn
+        keyExpiresIn: keyStorage.keys.get(activeKeyID).expiresIn
     });
 
 });
@@ -112,16 +112,38 @@ app.get('/posts', authenticateToken, (req, res) =>
 
 app.post('/rotate-keys', (req, res) =>
 {
-    const newKeyID = keyStorage.generateNewKey(10);
-    console.log(`Key rotated: ${newKeyID} is now active`);
+    try
+    {
+        console.log(`Rotating keys:`);
+        const days = req.body.expiresInDays || 1;
+        
+        const newKeyID = keyStorage.generateNewKey(days);
+        console.log(`New keys generated: ${newKeyID}`);
 
-    keyStorage.removeExpiredKeys();
+        const cleanedCount = keyStorage.removeExpiredKeys();
+        console.log(`Cleaned up keys : ${cleanedCount}`);
 
-    res.json({
-        message: 'Keys rotated successfully',
-        activeKeyID: keyStorage.activeKeyID,
-        activeKeyExpires: keyStorage.keys.get(keyStorage.activeKeyID).expiresIn
-    });
+        const activeKeyData = keyStorage.getKeyData(keyStorage.activeKeyID);
+
+        res.json
+        ({
+            success: true,
+            message: 'Keys rotated successfully',
+            newKeyID: newKeyID,
+            activeKeyID: keyStorage.activeKeyID,
+            activeKeyExpires: activeKeyData ? activeKeyData.expiresIn : null,
+            cleanedupKeys: cleanedCount
+        });
+    }
+    catch(error)
+    {
+        console.error('Error rotating keys:', error);
+        res.status(500).json
+        ({
+            error: "Failed to rotate keys",
+            details: error.message
+        });
+    }
 
 });
 
