@@ -115,7 +115,7 @@ app.post('/rotate-keys', (req, res) =>
     const newKeyID = keyStorage.generateNewKey(10);
     console.log(`Key rotated: ${newKeyID} is now active`);
 
-    keyStorage.cleanupExpiredKeys();
+    keyStorage.removeExpiredKeys();
 
     res.json({
         message: 'Keys rotated successfully',
