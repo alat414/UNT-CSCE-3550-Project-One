@@ -152,7 +152,8 @@ app.get('/key-status', (req, res) =>
     const status = [];
     for (const [id, key] of keyStorage.keys)
     {
-        status.push({
+        status.push
+        ({
             kid: id,
             createdAt: key.createdAt,
             expiresIn: key.expiresIn,
@@ -168,7 +169,8 @@ app.get('/key-status', (req, res) =>
 
 app.get('/health', (req, res) =>
 {
-    res.json({
+    res.json
+    ({
         status: 'OK',
         timestamp: new Date(),
         activeKeyID: keyStorage.activeKeyID,
@@ -197,5 +199,5 @@ app.listen(port, () =>
         - GET /posts
         - POST /rotate-keys
     
-        `);
+    `);
 });
