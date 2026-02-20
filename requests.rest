@@ -1,16 +1,16 @@
 ### Health Check
-GET http://localhost:8081/health
+GET http://localhost:8080/health
 
 ### Checking JWKS endpoint
-GET http://localhost:8081/.well-known/jwks.json
+GET http://localhost:8080/.well-known/jwks.json
 
 ### Check key status
-GET http://localhost:8081/key-status
+GET http://localhost:8080/key-status
 
 
 ### Authentication
 ### Login - get token with kid
-POST http://localhost:8081/login
+POST http://localhost:8080/login
 Content-Type:  application/json
 
 {
@@ -18,11 +18,11 @@ Content-Type:  application/json
 }
 
 ### Obtaining posts with token
-GET http://localhost:8081/posts
+GET http://localhost:8080/posts
 Authorization: Bearer 
 
 ### Verifying key status
-POST http://localhost:8081/token
+POST http://localhost:8080/token
 Content-Type: application/json
 
 {
@@ -30,11 +30,11 @@ Content-Type: application/json
 }
 
 ### Obtaining posts with token with new token
-GET http://localhost:8081/posts
+GET http://localhost:8080/posts
 Authorization: Bearer 
 
 ### Maintenance
-POST http://localhost:8081/rotate-keys
+POST http://localhost:8080/rotate-keys
 Content-Type: application/json
 
 {
@@ -42,8 +42,8 @@ Content-Type: application/json
 }
 
 ### Check key status
-GET http://localhost:8081/key-status
+GET http://localhost:8080/key-status
 
 ### Try old token after rotation; works if key is not expired
-GET http://localhost:8081/posts
+GET http://localhost:8080/posts
 Authorization: Bearer 
