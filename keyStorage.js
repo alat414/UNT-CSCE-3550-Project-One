@@ -62,6 +62,7 @@ class keyStorage
     {
         return this.activeKeyID;
     }
+
     deactivateKey(keyID)
     {
         const key = this.keys.get(keyID);
@@ -96,13 +97,18 @@ class keyStorage
     {
         console.log(` Removing expired keys...`);
         const now = new Date();
+        let expiredCount = 0;
+
         for (const [id, key] of this.keys)
         {
             if (now > key.expiresIn)
             {
                 this.deactivateKey(id);
+                expiredCount++;
             }
         }
+        console.log(` Removed ${expiredCount} expired keys`);
+        return expiredCount;
     }
 }
 
