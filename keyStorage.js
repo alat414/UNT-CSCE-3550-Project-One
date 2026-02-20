@@ -5,7 +5,7 @@ class keyStorage
     constructor()
     {
         this.keys = new Map();
-        this.validKeyID = null;
+        this.activeKeyID = null;
     }
 
     generateNewKey(expiresInDays = 1)
@@ -18,11 +18,11 @@ class keyStorage
         const keyData =
         {
             id: keyID,
-            secretMessage: secret,
-            createdTime: new Date(),
-            expiringTime: expiresIn,
-            activeStatus: true
-        }
+            secret: secret,
+            createdAt: new Date(),
+            expiresIn: expiresIn,
+            isActive: true
+        };
 
         this.keys.set(keyID, keyData);
         this.activeKeyID = keyID;
@@ -58,6 +58,10 @@ class keyStorage
         return this.activeKeyID ? this.getKey(this.activeKeyID) : null;
     }
 
+    getCurrentKeyID()
+    {
+        return this.activeKeyID;
+    }
     deactivateKey(keyID)
     {
         const key = this.keys.get(keyID);
@@ -77,10 +81,10 @@ class keyStorage
     {
         for (const [id, key] of this.keys)
         {
-            if (key.isActive && new Date() <= key.deactivateKey)
+            if (key.isActive && new Date() <= key.expiresIn)
             {
                 this.activeKeyID = id;
-                console.log(` Promoted key $(id) as active`);
+                console.log(` Promoted key ${id} as active`);
                 return;
             }
         }
@@ -90,6 +94,7 @@ class keyStorage
 
     removeExpiredKeys()
     {
+        console.log(` Removing expired keys...`);
         const now = new Date();
         for (const [id, key] of this.keys)
         {
