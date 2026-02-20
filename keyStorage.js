@@ -110,6 +110,28 @@ class keyStorage
         console.log(` Removed ${expiredCount} expired keys`);
         return expiredCount;
     }
+
+    getActiveKeys()
+    {
+        const activeKeys = [];
+        const now = new Date();
+
+        for (const [id, key] of this.keys)
+        {
+            if(key.isActive && now <= key.expiresIn)
+            {
+                activeKeys.push
+                ({
+                    kid: id,
+                    kty: "oct",
+                    alg: HS256,
+                    use: "sig",
+                    exp: Math.floor(key.expiresIn.getTime() / 1000)
+                });
+            }
+        }
+        return activeKeys;
+    }
 }
 
 module.exports = new keyStorage();
