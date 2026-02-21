@@ -59,9 +59,24 @@ app.post('/token', (req, res) =>
 
         if(!currentKey)
         {
-            return res.status(500).json({ error: 'No active key available'});
+            return res.status(500).json({ error: 'No active key available'});   
         }
-        const accessToken = generateToken({ name: user.name})
+        const accessToken = jwt.sign
+        (
+            {
+                name: user.name
+            },
+            currentKey,
+            {
+                expiresIn: '20s',
+                header:
+                {
+                    kid: currentKeyID,
+                    alg: 'HS256'
+
+                }
+            }
+        );
         res.json({ accessToken: accessToken})
     })
 })
