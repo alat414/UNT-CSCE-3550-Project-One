@@ -131,7 +131,7 @@ class keyStorage
             }
         }
         return activeKeys;
-    }
+    }   
 }
 
 module.exports = new keyStorage();
