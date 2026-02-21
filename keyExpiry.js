@@ -203,7 +203,22 @@ app.get('/health', (req, res) =>
 
 function generateToken(user)
 {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '60s'})
+    const currentKey = keyStorage.getCurrentKey();
+    const currentKeyID = keyStorage.getCurrentKeyID();
+
+    return jwt.sign
+    (
+        user,
+        currentKey,
+        {
+            expiresIn: '60s',
+            header: 
+            {
+                kid: currentKeyID,
+                alg: 'HS256'
+            }
+        }
+    );
 }
 
 app.listen(port, () => 
