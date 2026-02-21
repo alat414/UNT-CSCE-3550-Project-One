@@ -126,7 +126,7 @@ class keyStorage
             });
 
 
-            if(key.activeStatus && now <= key.expiresIn)
+            if(now <= key.expiresIn)
             {
                 activeKeys.push
                 ({
