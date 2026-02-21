@@ -19,14 +19,14 @@ Content-Type:  application/json
 
 ### 2. Obtaining posts with token
 GET http://localhost:8080/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImtleS0yMDI2LTAyLTIxLTJkMjA3NTliIn0.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzE2OTcxNDgsImV4cCI6MTc3MTY5NzE2OH0.rc-csgNDnznuHpY0-Yt04wxPpNIl8kq4vJ5xuhK7gwA
+Authorization: Bearer
 
-### Verifying key status
+### Using refresh token to get a new access token
 POST http://localhost:8080/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzE2OTcxMzl9.2JZkMzrcDbfdfr4qQft5yXXF62hXIf4ipTAw8EpNnJQ"
+    "token": ""
 }
 
 ####################
@@ -40,3 +40,6 @@ Content-Type: application/json
 {
     "expiresInDays": 1
 }
+
+### Debug - Displaying entire key objects
+GET http://localhost:8080/debug-keys
