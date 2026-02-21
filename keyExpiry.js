@@ -180,9 +180,9 @@ app.get('/key-status', (req, res) =>
             kid: id,
             createdAt: key.createdAt,
             expiresIn: key.expiresIn,
-            activeStatus: key.activeStatus,
+            isActive: key.isActive,
             isCurrent: id === keyStorage.activeKeyID,
-            expired: new Date() > key.expiresAt
+            expired: new Date() > key.expiresIn
 
         });
     }
