@@ -22,7 +22,7 @@ app.get('/.well-known/jwks.json', (req, res) =>
     
     for (const [kid, keyData] of keyStorage.keys)
     {
-        if(keyData.activeStatus && new Date() <= keyData.expiresIn)
+        if(keyData.isActive && new Date() <= keyData.expiresIn)
         {
             jwks.keys.push
             ({
