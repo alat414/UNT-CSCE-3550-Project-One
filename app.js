@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const port = 8080;
 const jwt = require('jsonwebtoken')
+const keyStorage = require('./keyStorage');
 
 app.use(express.json())
 
@@ -72,7 +73,8 @@ function authenticateToken(req, res, next)
             return res.sendStatus(403).json({ error: 'Invalid Token'});
 
         } 
-            
+        
+        console.log(`Token is verified for user: ${user.name}`);
         req.user = user;
         next();
     });
