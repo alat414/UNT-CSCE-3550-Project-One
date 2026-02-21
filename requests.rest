@@ -19,7 +19,7 @@ Content-Type:  application/json
 
 ### 2. Obtaining posts with token
 GET http://localhost:8080/posts
-Authorization: Bearer
+Authorization: Bearer 
 
 ### Using refresh token to get a new access token
 POST http://localhost:8080/token
