@@ -137,7 +137,7 @@ app.post('/rotate-keys', (req, res) =>
 {
     try
     {
-        console.log(`Rotating keys:`);
+        console.log('Rotating keys:');
         const days = req.body.expiresInDays || 1;
         
         const newKeyID = keyStorage.generateNewKey(days);
@@ -146,7 +146,7 @@ app.post('/rotate-keys', (req, res) =>
         const cleanedCount = keyStorage.removeExpiredKeys();
         console.log(`Cleaned up keys : ${cleanedCount}`);
 
-        const activeKeyData = keyStorage.getKeyData(keyStorage.activeKeyID);
+        const activeKeyData = keyStorage.keys.get(keyStorage.activeKeyID);
 
         res.json
         ({
