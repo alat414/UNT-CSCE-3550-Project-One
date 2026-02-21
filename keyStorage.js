@@ -130,6 +130,7 @@ class keyStorage
                 });
             }
         }
+        console.log(` Found ${activeKeys.length} active keys for JWKS` );
         return activeKeys;
     }   
 }
