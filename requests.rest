@@ -19,14 +19,14 @@ Content-Type:  application/json
 
 ### 2. Obtaining posts with token
 GET http://localhost:8080/posts
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImtleS0yMDI2LTAyLTIxLTJkMjA3NTliIn0.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzE2OTcxNDgsImV4cCI6MTc3MTY5NzE2OH0.rc-csgNDnznuHpY0-Yt04wxPpNIl8kq4vJ5xuhK7gwA
 
 ### Verifying key status
 POST http://localhost:8080/token
 Content-Type: application/json
 
 {
-    "token": ""
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmFubmEiLCJpYXQiOjE3NzE2OTcxMzl9.2JZkMzrcDbfdfr4qQft5yXXF62hXIf4ipTAw8EpNnJQ"
 }
 
 ####################
@@ -38,5 +38,5 @@ POST http://localhost:8080/rotate-keys
 Content-Type: application/json
 
 {
-    "expiresIn": 10
+    "expiresInDays": 1
 }
