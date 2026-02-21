@@ -68,17 +68,17 @@ class keyStorage
         const key = this.keys.get(keyID);
         if(key)
         {
-            key.activeStatus = false;
-            console.log(`Key $(keyID) expired and deactivated`);
+            key.isActive = false;
+            console.log(`Key ${keyID} expired and deactivated`);
         }
 
         if (keyID === this.activeKeyID)
         {
-            this.passFollowingKey();
+            this.promoteNextKey();
         }
     }
 
-    passFollowingKey()
+    promoteNextKey()
     {
         for (const [id, key] of this.keys)
         {
@@ -120,13 +120,13 @@ class keyStorage
         {
             console.log(`Checking key ${id}:`,
             {
-                activeStatus: key.activeStatus,
+                isActive: key.isActive,
                 expiresIn: key.expiresIn,
                 isCurrent: id === this.activeKeyID
             });
 
 
-            if(now <= key.expiresIn)
+            if(key.isActive && now <= key.expiresIn)
             {
                 activeKeys.push
                 ({
