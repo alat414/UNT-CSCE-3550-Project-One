@@ -201,6 +201,20 @@ app.get('/health', (req, res) =>
     });
 });
 
+app.get('/debug-keys', (req, res) =>
+{
+    const rawKeys = [];
+    for(const [id, key] of keyStorage.keys)
+    {
+        rawKeys.push
+        ({
+            id: id,
+            fullObject: key
+        });
+    }
+    res.json(rawKeys);
+})
+
 function generateToken(user)
 {
     const currentKey = keyStorage.getCurrentKey();
