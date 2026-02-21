@@ -118,13 +118,21 @@ class keyStorage
 
         for (const [id, key] of this.keys)
         {
-            if(key.isActive && now <= key.expiresIn)
+            console.log(`Checking key ${id}:`,
+            {
+                activeStatus: key.activeStatus,
+                expiresIn: key.expiresIn,
+                isActive: id === this.activeKeyID
+            });
+
+
+            if(key.activeStatus && now <= key.expiresIn)
             {
                 activeKeys.push
                 ({
                     kid: id,
                     kty: "oct",
-                    alg: HS256,
+                    alg: "HS256",
                     use: "sig",
                     exp: Math.floor(key.expiresIn.getTime() / 1000)
                 });
