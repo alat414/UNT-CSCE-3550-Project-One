@@ -122,7 +122,7 @@ class keyStorage
             {
                 activeStatus: key.activeStatus,
                 expiresIn: key.expiresIn,
-                isActive: id === this.activeKeyID
+                isCurrent: id === this.activeKeyID
             });
 
 
