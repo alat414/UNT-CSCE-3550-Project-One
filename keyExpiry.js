@@ -153,7 +153,7 @@ app.get('/key-status', (req, res) =>
     for (const [id, key] of keyStorage.keys)
     {
         status.push
-        ({
+            ({
             kid: id,
             createdAt: key.createdAt,
             expiresIn: key.expiresIn,
