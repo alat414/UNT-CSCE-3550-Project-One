@@ -29,9 +29,9 @@ Content-Type: application/json
     "token": ""
 }
 
-### Obtaining posts with token with new token
-GET http://localhost:8080/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFnZ2kiLCJpYXQiOjE3NzE2MzY1NjUsImV4cCI6MTc3MTYzNjYyNX0.Aq62nXeRG-GFpyeSviuYyNZ601nKLTI6T_yv-16T8ZM
+####################
+### Check key status
+GET http://localhost:8080/key-status
 
 ### Maintenance
 POST http://localhost:8080/rotate-keys
@@ -40,10 +40,3 @@ Content-Type: application/json
 {
     "expiresIn": 10
 }
-
-### Check key status
-GET http://localhost:8080/key-status
-
-### Try old token after rotation; works if key is not expired
-GET http://localhost:8080/posts
-Authorization: Bearer 
