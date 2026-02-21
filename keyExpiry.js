@@ -52,6 +52,14 @@ app.post('/token', (req, res) =>
         if (err)
         {
             return res.sendStatus(403)
+        }   
+
+        const currentKey = keyStorage.getCurrentKey();
+        const currentKeyID = keyStorage.getCurrentKeyID();
+
+        if(!currentKey)
+        {
+            return res.status(500).json({ error: 'No active key available'});
         }
         const accessToken = generateToken({ name: user.name})
         res.json({ accessToken: accessToken})
