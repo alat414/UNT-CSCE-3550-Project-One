@@ -92,7 +92,7 @@ app.post('/login', (req, res) =>
         return res.status(400).json({ error: 'Username is required '})
     }
     
-    if (!VALID_USERS.includes(user))
+    if (!VALID_USERS.includes(username))
     {
         console.log(`Unauthorized login attempt: ${username}`);
         return res.status(401).json
