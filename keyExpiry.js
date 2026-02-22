@@ -9,9 +9,12 @@ const keyStorage = require('./keyStorage');
 
 const { authenticateToken, posts } = require('./app.js')
 
+const VALID_USERS = ['Nanna', 'nanna', 'Raggi', 'raggi'];
+
 app.use(express.json())
 
 keyStorage.generateNewKey(10);
+
 
 app.get('/.well-known/jwks.json', (req, res) => 
 {
@@ -89,7 +92,18 @@ app.post('/login', (req, res) =>
         return res.status(400).json({ error: 'Username is required '})
     }
     
-    const user = { name: username }
+    if (!VALID_USERS.includes(user))
+    {
+        console.log(`Unauthorized login attempt: ${username}`);
+        return res.status(401).json
+        ({
+            error: 'Unauthorized',
+            message: 'Invalid Username'
+        });
+    }
+    
+    console.log(`Authorized user: ${username}`);
+    const user = { name: username };
     const currentKey = keyStorage.getCurrentKey();
     const activeKeyID = keyStorage.activeKeyID;
     
