@@ -1,5 +1,24 @@
+/* *************************************************
+*  Name: Alexander Katrompas
+*  Assignment: Demonstration Code
+*  Purpose: A demonstration of a properly
+*           constructed and commented functions.cpp
+************************************************* */
 const crypto = require('crypto');
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 class keyStorage
 {
     constructor()
@@ -143,4 +162,17 @@ class keyStorage
     }   
 }
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 module.exports = new keyStorage();
