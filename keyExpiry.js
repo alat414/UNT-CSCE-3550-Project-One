@@ -1,3 +1,9 @@
+/* *************************************************
+*  Name: Alexander Katrompas
+*  Assignment: Demonstration Code
+*  Purpose: A demonstration of a properly
+*           constructed and commented functions.cpp
+************************************************* */
 // Authenticate User
 require('dotenv').config()
 
@@ -15,6 +21,19 @@ app.use(express.json())
 
 keyStorage.generateNewKey(10);
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 
 app.get('/.well-known/jwks.json', (req, res) => 
 {
@@ -42,6 +61,19 @@ app.get('/.well-known/jwks.json', (req, res) =>
     res.json(jwks);
 });
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.post('/token', (req, res) =>
 {
     const refreshToken = req.body.token
@@ -84,6 +116,19 @@ app.post('/token', (req, res) =>
     })
 })
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.post('/login', (req, res) => 
 {
     const username = req.body.username;
@@ -138,6 +183,19 @@ app.post('/login', (req, res) =>
 
 });
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.get('/posts', authenticateToken, (req, res) => 
 {
     console.log('GET /post - User:' , req.user.name);
@@ -147,6 +205,19 @@ app.get('/posts', authenticateToken, (req, res) =>
     res.json(userPosts);
 })
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.post('/rotate-keys', (req, res) =>
 {
     try
@@ -184,6 +255,19 @@ app.post('/rotate-keys', (req, res) =>
 
 });
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.get('/key-status', (req, res) =>
 {
     const status = [];
@@ -204,6 +288,19 @@ app.get('/key-status', (req, res) =>
 
 });
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.get('/health', (req, res) =>
 {
     res.json
@@ -215,6 +312,19 @@ app.get('/health', (req, res) =>
     });
 });
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.get('/debug-keys', (req, res) =>
 {
     const rawKeys = [];
@@ -229,6 +339,19 @@ app.get('/debug-keys', (req, res) =>
     res.json(rawKeys);
 })
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 function generateToken(user)
 {
     const currentKey = keyStorage.getCurrentKey();
@@ -249,6 +372,19 @@ function generateToken(user)
     );
 }
 
+/* *************************************************
+* This function accepts two square objects,
+*         compares there area and will return 0, 1 ,2.
+* 0: they are equal
+* 1: the first square is bigger
+* 2: the second square is bigger
+
+* @param sq1 : a Square object
+* @param sq2 : a Square object
+* @return 0,1,2 : which square is bigger
+* @exception : none
+* @note : na
+* ************************************************* */
 app.listen(port, () => 
 {
     console.log(`Using authenticateToken from app.js`);
