@@ -1,3 +1,10 @@
+/* *************************************************
+*  Name: Alexander Katrompas
+*  Assignment: Demonstration Code
+*  Purpose: A demonstration of a properly
+*           constructed and commented functions.cpp
+************************************************* */
+
 require('dotenv').config()
 
 const express = require('express');
@@ -7,7 +14,17 @@ const jwt = require('jsonwebtoken')
 const keyStorage = require('./keyStorage');
 
 app.use(express.json())
+/* *************************************************
+* This function accepts two square objects, compares
+* them by calling compareSquares() and prints the answer.
+* Since is it a printing function, that is its only job.
 
+* @param sq1 : a square object
+* @param sq2 : a square object
+* @return : na
+* @exception : na
+* @note : na
+* ************************************************* */
 const posts = 
 [
     {
@@ -20,12 +37,34 @@ const posts =
     }
 
 ]
+/* *************************************************
+* This function accepts two square objects, compares
+* them by calling compareSquares() and prints the answer.
+* Since is it a printing function, that is its only job.
+
+* @param sq1 : a square object
+* @param sq2 : a square object
+* @return : na
+* @exception : na
+* @note : na
+* ************************************************* */
 app.get('/posts', authenticateToken, (req, res) => 
 {
     res.json(posts.filter(post => post.username === req.user.name));
 
 });
 
+/* *************************************************
+* This function accepts two square objects, compares
+* them by calling compareSquares() and prints the answer.
+* Since is it a printing function, that is its only job.
+
+* @param sq1 : a square object
+* @param sq2 : a square object
+* @return : na
+* @exception : na
+* @note : na
+* ************************************************* */
 app.post('/login', (req, res) => 
 {
     const username = req.body.username
@@ -36,6 +75,17 @@ app.post('/login', (req, res) =>
 
 });
 
+/* *************************************************
+* This function accepts two square objects, compares
+* them by calling compareSquares() and prints the answer.
+* Since is it a printing function, that is its only job.
+
+* @param sq1 : a square object
+* @param sq2 : a square object
+* @return : na
+* @exception : na
+* @note : na
+* ************************************************* */
 function authenticateToken(req, res, next)
 {
     const authHeader = req.headers['authorization'];
@@ -81,6 +131,17 @@ function authenticateToken(req, res, next)
 
 }
 
+/* *************************************************
+* This function accepts two square objects, compares
+* them by calling compareSquares() and prints the answer.
+* Since is it a printing function, that is its only job.
+
+* @param sq1 : a square object
+* @param sq2 : a square object
+* @return : na
+* @exception : na
+* @note : na
+* ************************************************* */
 module.exports = 
 {
     app, 
