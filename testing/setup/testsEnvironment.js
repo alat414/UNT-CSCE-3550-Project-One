@@ -1,8 +1,8 @@
 /* *************************************************
 *  Name: Gustavo Alatriste
 *  Assignment: Project One JWKS server
-*  Purpose: A file  of a properly
-*           constructed and commented 
+*  Purpose: Environment testing variables
+*           constructed and paths listed
 *           testsEnvironment.cpp
 ************************************************* */
 
