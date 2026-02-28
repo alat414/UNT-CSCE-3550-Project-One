@@ -5,3 +5,6 @@
 *           constructed and commented 
 *           testsEnvironment.cpp
 ************************************************* */
+
+require('dotenv').config({path: '.env.test'});
+
