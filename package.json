@@ -17,20 +17,28 @@
   "author": "gustavo",
   "type": "commonjs",
   "main": "index.js",
-  "scripts": {
+  "scripts": 
+  {
     "devStart": "nodemon app.js",
     "devStart2": "nodemon keyExpiry.js",
     "test": "jest",
+    "test:unit": "jest testing/unit_tests",
+    "test:integration": "jest testing/integration_tests",
+    "test:auth": "jest testing/integration_tests/authentication-flow.tests.js",
+    "test:keys": "jest testing/integration_tests/key-rotation.tests.js",
+    "test:expiry": "jest testing/integration_tests/token-expiry.tests.js",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
-
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --maxWorkers=2"
   },
-  "dependencies": {
+  "dependencies": 
+  {
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3"
   },
-  "devDependencies": {
+  "devDependencies": 
+  {
     "jest": "^30.2.0",
     "nodemon": "^3.1.11",
     "supertest": "^7.2.2"
