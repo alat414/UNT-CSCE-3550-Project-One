@@ -46,6 +46,26 @@ describe('Authentication Flow', () =>
 
             }
         });
+
+        test('Must return 200 with proper tokens if the username is valid', async () =>
+        {
+            for (const username of VALID_USERS)
+            {
+                const response = await request(app)
+                    .post('/login')
+                    .send({ username})
+                    .expect(200);
+                
+                expect(response.body).toHaveProperty('accessToken');
+                expect(response.body).toHaveProperty('refreshToken');
+                expect(response.body).toHaveProperty('keyID');
+                expect(response.body).toHaveProperty('keyExpiresIn');
+
+                const tokenParts = response.body.accessToken.split('.');
+                expect(tokenParts.length).toBe(3);
+
+            }
+        });
     })
 
 })
