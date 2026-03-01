@@ -70,5 +70,15 @@ describe('KeyStorage Unit tests', () =>
         expect(keyStorage.keys.size).toBe(2);
     });
 
+    test('Deactivate key should be set to inactive', () =>
+    {
+        const keyID = keyStorage.generateNewKey(1);
+
+        keyStorage.deactivateKey(keyID);
+
+        const key = keyStorage.keys.get(keyID);
+        expect(key.isActive).toBe(false);
+    });
+
     
 });
