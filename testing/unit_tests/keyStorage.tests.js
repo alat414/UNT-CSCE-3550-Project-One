@@ -56,5 +56,19 @@ describe('KeyStorage Unit tests', () =>
         expect(typeof currentKey).toBe('string');
         expect(currentKey.length).toBe(128);
     });
+
+    test('Clean up expired keys in removeExpiredKeys', async () =>
+    {
+        keyStorage.generateNewKey(0.0000001);
+        keyStorage.generateNewKey(1);
+        keyStorage.generateNewKey(1);
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        const removed = keyStorage.removeExpiredKeys();
+        expect(removed).toBe(1);
+        expect(keyStorage.keys.size).toBe(2);
+    });
+
     
 });
