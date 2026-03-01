@@ -64,6 +64,8 @@ describe('Authentication Flow', () =>
                 const tokenParts = response.body.accessToken.split('.');
                 expect(tokenParts.length).toBe(3);
 
+                global[`${username}AccessToken`] = response.body.accessToken;
+                global[`${username}RefreshToken`] = response.body.refreshToken;
             }
         });
     })
