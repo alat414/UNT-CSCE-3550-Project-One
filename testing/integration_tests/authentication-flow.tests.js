@@ -28,9 +28,24 @@ describe('Authentication Flow', () =>
                 .post('/login')
                 .send({})
                 .expect(400);
+
             expect(response.body.error).toBe('Username is required');
         });
-        
+
+        test('Must return 401 if the username is invalid', async () =>
+        {
+            for (const invalidUser of INVALID_USERS)
+            {
+                const response = await request(app)
+                    .post('/login')
+                    .send({ username: invalidUser})
+                    .expect(401);
+                
+                expect(response.body.error).toBe('Username is unauthorized');
+                expect(response.body.message).toBe('Username is invalid');
+
+            }
+        });
     })
 
 })
