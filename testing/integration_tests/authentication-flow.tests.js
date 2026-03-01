@@ -18,3 +18,19 @@ const {request, app } = require('../setup/testsEnvironment');
 const { VALID_USERS, INVALID_USERS, EXPECTED_POSTS } = require('../fixture_tests/test-keys');
 
 
+describe('Authentication Flow', () => 
+{
+    describe ('POST /login', () =>
+    {
+        test('Must return 400 if the username is missing', async () =>
+        {
+            const response = await request(app)
+                .post('/login')
+                .send({})
+                .expect(400);
+            expect(response.body.error).toBe('Username is required');
+        });
+        
+    })
+
+})
