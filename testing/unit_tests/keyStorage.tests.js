@@ -47,5 +47,14 @@ describe('KeyStorage Unit tests', () =>
         expect(key.isActive).toBe(false);
     });
 
+    test('getCurrentKey returning active key', () =>
+    {
+        keyStorage.getCurrentKey(1);
+        const currentKey = keyStorage.getCurrentKey();
+
+        expect(currentKey).toBeDefined();
+        expect(typeof currentKey).toBe('string');
+        expect(currentKey.length).toBe(128);
+    });
     
 });
