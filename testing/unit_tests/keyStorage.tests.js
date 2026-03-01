@@ -17,6 +17,22 @@ describe('KeyStorage Unit tests', () =>
         keyStorage.keys.clear();
         keyStorage.activeKeyID = null;
     });
+
+    test('The function generateNewKey must create a valid key', async () =>
+    {
+        const keyID = keyStorage.generateNewKey(1);
+        expect(keyID).toBeDefined();
+        expect(keyStorage.keys.size).toBe(1);
+
+        const key = keyStorage.keys.get(keyID);
+        expect(key.id).toBe(keyID);
+        expect(key.secret).toBeDefined();
+        expect(key.secret.length).toBe(128);
+        expect(key.isActive).toBe(true);
+        expect(key.createdAt).toBeInstanceOf(Date);
+        expect(key.expiresIn).toBeInstanceOf(Date);
+        
+    });
     
     test('Must return JWK format with active valid keys', async () =>
     {
