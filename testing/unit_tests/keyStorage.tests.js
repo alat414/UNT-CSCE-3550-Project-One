@@ -80,5 +80,20 @@ describe('KeyStorage Unit tests', () =>
         expect(key.isActive).toBe(false);
     });
 
+    test('Call promoteNextKey must activate the following valid key', () =>
+    {
+        const firstKeyID = keyStorage.generateNewKey(1);
+
+        keyStorage.deactivateKey(firstKeyID);
+
+        const secondKeyID = keyStorage.generateNewKey(1);
+
+        expect(keyStorage.activeKeyID).toBe(secondKeyID);
+        
+        keyStorage.promoteNextKey();
+        expect(keyStorage.activeKeyID).toBe(secondKeyID);
+
+    });
+
     
 });
