@@ -16,7 +16,7 @@
   "license": "UNLICENSED",
   "author": "gustavo",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "keyExpiry.js",
   "scripts": 
   {
     "devStart": "nodemon app.js",
@@ -30,6 +30,27 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --maxWorkers=2"
+  },
+  "jest": 
+  {
+    "testEnvironment": "node",
+    "testMatch": ["**/testing/**/*.tests.js"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "keyExpiry.js",
+        "keyStorage.js",
+        "app.js",
+        "!**/node_modules/**",
+        "!**/testing/**"
+    ],
+    "coverageReporters": ["text", "html", "lcov"]
   },
   "dependencies": 
   {
