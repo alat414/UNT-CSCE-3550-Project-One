@@ -13,6 +13,6 @@ process.env.REFRESH_TOKEN_SECRET = 'test-refresh-secret';
 process.env.PORT = 8082;
 
 const request = require('supertest');
-const app = require('../../keyExpiry');
+const { app } = require('../../keyExpiry');
 
 module.exports = {request, app};
