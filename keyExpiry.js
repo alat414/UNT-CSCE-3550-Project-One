@@ -404,4 +404,4 @@ app.listen(port, () =>
     `);
 });
 
-module.exports = { app, keyStorage };
+module.exports = { app, keyStorage, authenticateToken, posts };
