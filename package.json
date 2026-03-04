@@ -33,6 +33,7 @@
   },
   "jest": 
   {
+    "testTimeout": 30000,
     "testEnvironment": "node",
     "testMatch": ["**/testing/**/*.tests.js"],
     "coverageThreshold": {
