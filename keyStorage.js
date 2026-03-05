@@ -123,6 +123,7 @@ class keyStorage
             if (now > key.expiresIn)
             {
                 this.deactivateKey(id);
+                this.keys.delete(id);
                 expiredCount++;
             }
         }
