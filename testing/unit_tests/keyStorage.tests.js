@@ -33,15 +33,28 @@ describe('KeyStorage Unit tests', () =>
 
     test('Clean up expired keys in removeExpiredKeys', async () =>
     {
-        keyStorage.generateNewKey(0.000001);
-        keyStorage.generateNewKey(1);
-        keyStorage.generateNewKey(1);
+        const expiredKeyID = keyStorage.generateNewKey(0.0000001);
+        const validKeyIDOne = keyStorage.generateNewKey(1);
+        const validKeyIDTwo = keyStorage.generateNewKey(1);
 
-        await new Promise(resolve => setTimeout(resolve, 200));
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        const key = keyStorage.keys.get(expiredKeyID);
+
+        if(key && new Date() > key.expiresIn)
+        {
+            keyStorage.deactivateKey(expiredKeyID);
+        }
 
         const removed = keyStorage.removeExpiredKeys();
         expect(removed).toBe(1);
+
         expect(keyStorage.keys.size).toBe(2);
+
+        expect(keyStorage.keys.has(expiredKeyID).toBe(false));
+        expect(keyStorage.keys.has(expiredKeyID).toBe(true));
+        expect(keyStorage.keys.has(expiredKeyID).toBe(true));
+
     }, 1000);
 
     test('The function generateNewKey must create a valid key', async () =>
