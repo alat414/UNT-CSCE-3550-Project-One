@@ -40,21 +40,16 @@ describe('KeyStorage Unit tests', () =>
 
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        const key = keyStorage.keys.get(expiredKeyID);
-        if(key && new Date() > key.expiresIn)
-        {
-            keyStorage.deactivateKey(expiredKeyID);
-        }
-
         const removed = keyStorage.removeExpiredKeys();
+
 
         expect(removed).toBe(1);
 
         expect(keyStorage.keys.size).toBe(2);
 
-        expect(keyStorage.keys.has(expiredKeyID).toBe(false));
-        expect(keyStorage.keys.has(validKeyIDOne).toBe(true));
-        expect(keyStorage.keys.has(validKeyIDTwo).toBe(true));
+        expect(keyStorage.keys.has(expiredKeyID)).toBe(false);
+        expect(keyStorage.keys.has(validKeyIDOne)).toBe(true);
+        expect(keyStorage.keys.has(validKeyIDTwo)).toBe(true);
 
     }, 2000);
 
