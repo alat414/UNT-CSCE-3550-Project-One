@@ -1,5 +1,5 @@
 /* *************************************************
-*  Name: Alexander Katrompas
+*  Name: Gustavo Alatriste
 *  Assignment: Demonstration Code
 *  Purpose: A demonstration of a properly
 *           constructed and commented functions.cpp
