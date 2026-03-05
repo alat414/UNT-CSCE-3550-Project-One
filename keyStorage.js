@@ -127,7 +127,7 @@ class keyStorage
                 expiredCount++;
             }
         }
-        console.log(` Removed ${expiredCount} expired keys`);
+        console.log(`Removed ${expiredCount} expired keys`);
         return expiredCount;
     }
 
