@@ -14,9 +14,9 @@ const { app } = require('../../app');
 
 jest.mock('../../keyStorage',()  => 
     ({
-        getKey: jest.fin(),
-        getCurrentKey: jest.fin(),
-        getCurrentKeyID: jest.fin(),
+        getKey: jest.fn(),
+        getCurrentKey: jest.fn(),
+        getCurrentKeyID: jest.fn(),
     }));
 
 const keyStorage = require('../../keyStorage'); 
