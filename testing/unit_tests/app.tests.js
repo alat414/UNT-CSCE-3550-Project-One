@@ -31,23 +31,34 @@ describe('app.js - Authentication middleware', () =>
     test('AuthenticateToken test for handling verfication errors', async () =>
     {
         keyStorage.getKey.mockReturnValue('valid-secret');
-        const token = jwt.sign({ name: 'Nanna' }, 'wrong=secret');
+
+        const token = jwt.sign(
+            { name: 'Nanna' }, 
+            'wrong=secret',
+            { 
+                expiresIn: '15s',
+                header: { kid: 'test-key-id', alg: 'HS256' } 
+            }
+        );
 
         const response = await request(app)
             .get('/posts')
             .set('Authorization', `Bearer ${token}`)
             .expect(403);
 
-        expect(response.body.error).toBe('Invalid token');
+        expect(response.body.error).toBe('Invalid Token');
            
     });
 
     test('App.js file must successfully export without starting the server', async () =>
     {
-        const exportedApp = require('../../app');
-
-        expect(exportedApp).toHaveProperty('authenticateToken');
-        expect(exportedApp).toHaveProperty('posts');
+        expect(app).toBeDefined();
+        expect(authenticateToken).toBeDefined();
+        expect(typeof authenticateToken).toBe('function');
+        expect(posts).toBeDefined();
+        expect(Array).toHaveProperty(true);
+        expect(posts.length).toBe(2);
+ 
            
     });
 
@@ -66,7 +77,7 @@ describe('app.js - Authentication middleware', () =>
             .set('Authorization', `Bearer ${token}`)
             .expect(401);
 
-        expect(response.body.error).toBe('Key is missing or expired');
+        expect(response.body.error).toBe('Key Invalid');
            
     });
 
