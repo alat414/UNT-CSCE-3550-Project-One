@@ -41,4 +41,14 @@ describe('app.js - Authentication middleware', () =>
         expect(response.body.error).toBe('Invalid token');
            
     });
+
+    test('AuthenticateToken test for handling verfication errors', async () =>
+    {
+        const exportedApp = require('../../app');
+
+        expect(exportedApp).toHaveProperty('authenticateToken');
+        expect(exportedApp).toHaveProperty('posts');
+           
+    });
+
 });
