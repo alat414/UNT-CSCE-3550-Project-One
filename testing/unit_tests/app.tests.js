@@ -42,12 +42,31 @@ describe('app.js - Authentication middleware', () =>
            
     });
 
-    test('AuthenticateToken test for handling verfication errors', async () =>
+    test('App.js file must successfully export without starting the server', async () =>
     {
         const exportedApp = require('../../app');
 
         expect(exportedApp).toHaveProperty('authenticateToken');
         expect(exportedApp).toHaveProperty('posts');
+           
+    });
+
+    test('AuthenticateToken test for handling verfication errors', async () =>
+    {
+        keyStorage.getKey.mockReturnValue(null);
+
+        const token = jwt.sign(
+            { name: 'Nanna' }, 
+            'some=secret',
+            { header: { kid: 'non-existent', alg: 'HS256' } }
+        );
+
+        const response = await request(app)
+            .get('/posts')
+            .set('Authorization', `Bearer ${token}`)
+            .expect(401);
+
+        expect(response.body.error).toBe('Key is missing or expired');
            
     });
 
