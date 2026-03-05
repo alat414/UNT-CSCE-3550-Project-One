@@ -30,3 +30,4 @@ describe('KeyStorage Unit tests', () =>
             expect(currentKey.length).toBe(128);
         }    
     });
+});
