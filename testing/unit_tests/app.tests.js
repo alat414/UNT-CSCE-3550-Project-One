@@ -44,7 +44,7 @@ describe('app.js - Authentication middleware', () =>
             .set('Authorization', `Bearer ${token}`)
             .expect(403);
 
-        expect(response.body.error).toBe('Invalid token');
+        expect(response.body.error).toBe('Invalid Token');
            
     });
 
