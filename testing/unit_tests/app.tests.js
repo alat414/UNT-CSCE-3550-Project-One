@@ -77,13 +77,35 @@ describe('app.js - Authentication middleware', () =>
            
     });
 
-    test('Authentication test for handling verification erros', async () =>
+    test('Should return 401 when signing key is invalid', async () =>
+    {
+        keyStorage.getKey.mockReturnValue(null);
+
+        const token = jwt.sign(
+            { name: 'Nanna' }, 
+            'wrong-secret',
+            { 
+                expiresIn: '15s',
+                header: { kid: 'non-existent-key', alg: 'HS256' } 
+            }
+        );
+
+        const response = await request(app)
+            .get('/posts')
+            .set('Authorization', `Bearer ${token}`)
+            .expect(401);
+
+        expect(response.body.error).toBe('Key invalid');
+        expect(response.body.message).toBe('Token was signed with invalid key, retry.');
+    });
+
+    test('Should return 200 with posts for valid tokens', async () =>
     {
         keyStorage.getKey.mockReturnValue('valid-secret');
 
         const token = jwt.sign(
             { name: 'Nanna' }, 
-            'wrong=secret',
+            'valid-secret',
             { 
                 expiresIn: '15s',
                 header: { kid: 'test-key-id', alg: 'HS256' } 
@@ -93,10 +115,12 @@ describe('app.js - Authentication middleware', () =>
         const response = await request(app)
             .get('/posts')
             .set('Authorization', `Bearer ${token}`)
-            .expect(403);
+            .expect(200);
 
-        expect(response.body.error).toBe('Invalid Token');
-           
+        expect((Array.isArray(posts)).toBe(true));
+        expect(response.body[0].username).toBe('Nanna');
     });
+
+
 
 });
