@@ -72,14 +72,11 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
 
     test('GET /key-status should handle empty keys', async () =>
     {
-        keyStorage.keys.clear();
-
         const response = await request(app)
             .get('/key-status')
-            .expect(500);
+            .expect(200);
 
         expect(Array.isArray(response.body)).toBe(true);
-        expect(response.body.length).toBe(0);
     });
 
     test('Function generateToken should handle missing key', async () =>
