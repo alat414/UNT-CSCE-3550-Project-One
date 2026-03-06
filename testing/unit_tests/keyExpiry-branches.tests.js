@@ -43,22 +43,16 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
             .expect(403);
     });
 
-    test('App.js file must successfully export without starting the server', async () =>
+    test('POST /login should handle no key available', async () =>
     {
         keyStorage.getKey.mockReturnValue(null);
 
-        const token = jwt.sign(
-            { name: 'Nanna' }, 
-            'some=secret',
-            { expiresIn: '15s' }
-        );
-
         const response = await request(app)
-            .get('/posts')
-            .set('Authorization', `Bearer ${token}`)
-            .expect(401);
+            .post('/login')
+            .send({ username: 'Nanna' })
+            .expect(500);
 
-        expect(response.body.error).toBe('No key ID in token');
+        expect(response.body.error).toBe('No key available');
     });
 
     test('Should return 401 when token has no key ID', async () =>
