@@ -10,7 +10,7 @@
 
 const request = require('supertest'); 
 const jwt = require('jsonwebtoken'); 
-const { app, posts } = require('../../app'); 
+const { app, authenticateToken, posts } = require('../../app'); 
 
 jest.mock('../../keyStorage',()  => 
     ({
