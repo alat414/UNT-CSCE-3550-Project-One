@@ -121,6 +121,14 @@ describe('app.js - Authentication middleware', () =>
         expect(response.body[0].username).toBe('Nanna');
     });
 
+    test('Should return 401 for malformed authorization header', async () =>
+    {
+        await request(app)
+            .get('/post')
+            .set('Authorization', 'Bearer')
+            .expect(401);
+    });
+
 
 
 });
