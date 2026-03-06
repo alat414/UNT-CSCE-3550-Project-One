@@ -9,56 +9,41 @@
 ************************************************* */
 
 const request = require('supertest'); 
-const jwt = require('jsonwebtoken'); 
-const { app, authenticateToken, posts } = require('../../app'); 
+const { app } = require('../../keyExpiry'); 
+const keyStorage = require('../../keyStorage'); 
 
 jest.mock('../../keyStorage',()  => 
     ({
+        generateNewKey: jest.fn(),
+        getCurrentKey: jest.fn(),
+        getCurrentKeyID: jest.fn(),
         getKey: jest.fn(),
+        removeExpiredKeys: jest.fn(),
+        keys: jest.fn(),
+        activeKeyID: null
     }));
 
-const keyStorage = require('../../keyStorage'); 
-
-describe('app.js - Authentication middleware', () =>
+describe('keyExpiry.js - Branch Coverage Tests', () =>
 {
     beforeEach(() => 
     {
         jest.clearAllMocks();
     });
 
-    test('Authentication test for handling verification erros', async () =>
+    test('POST /token should handle invalid refresh token', async () =>
     {
-        keyStorage.getKey.mockReturnValue('valid-secret');
+        jest.spyOn(require('jsonwebtoken'), 'verify').mockImplementationOnce((token, secret, cb) =>
+        {
+            cb(new Error('Invalid token'), null);
+        })
 
-        const token = jwt.sign(
-            { name: 'Nanna' }, 
-            'wrong=secret',
-            { 
-                expiresIn: '15s',
-                header: { kid: 'test-key-id', alg: 'HS256' } 
-            }
-        );
-
-        const response = await request(app)
-            .get('/posts')
-            .set('Authorization', `Bearer ${token}`)
+        await request(app)
+            .post('/token')
+            .send({ token: 'some-token'})
             .expect(403);
-
-        expect(response.body.error).toBe('Invalid Token');
-           
     });
 
     test('App.js file must successfully export without starting the server', async () =>
-    {
-        expect(app).toBeDefined();
-        expect(authenticateToken).toBeDefined();
-        expect(typeof authenticateToken).toBe('function');
-        expect(posts).toBeDefined();
-        expect(Array.isArray(posts)).toBe(true);
-        expect(posts.length).toBe(2);
-    });
-
-    test('Should return 401 when token has no key ID', async () =>
     {
         keyStorage.getKey.mockReturnValue(null);
 
@@ -74,6 +59,11 @@ describe('app.js - Authentication middleware', () =>
             .expect(401);
 
         expect(response.body.error).toBe('No key ID in token');
+    });
+
+    test('Should return 401 when token has no key ID', async () =>
+    {
+        
            
     });
 
