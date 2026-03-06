@@ -55,10 +55,19 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
         expect(response.body.error).toBe('No key available');
     });
 
-    test('Should return 401 when token has no key ID', async () =>
+    test('POST /rotate-keys should handle errors', async () =>
     {
-        
-           
+        keyStorage.generateNewKey.mockImplementationOnce( () => 
+        {
+            throw new Error('Test error');
+        });
+
+        const response = await request(app)
+            .post('/rotate-keys')
+            .send({ expiresInDays: 1 })
+            .expect(500);
+
+        expect(response.body.error).toBe('Failed to rotate keys');
     });
 
     test('Should return 401 when signing key is invalid', async () =>
