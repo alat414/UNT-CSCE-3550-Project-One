@@ -138,7 +138,7 @@ describe('app.js - Authentication middleware', () =>
             .set('Authorization', `Bearer ${token}`)
             .expect(200);
 
-        expect((Array.isArray(response.body)).toBe(true));
+        expect(Array.isArray(response.body)).toBe(true);
         expect(response.body[0].username).toBe('Nanna');
     });
 
