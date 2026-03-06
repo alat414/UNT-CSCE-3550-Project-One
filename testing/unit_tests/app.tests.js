@@ -129,6 +129,12 @@ describe('app.js - Authentication middleware', () =>
             .expect(401);
     });
 
+    test('Should return 401 for no authorization header', async () =>
+    {
+        await request(app)
+            .get('/post')
+            .expect(401);
+    });
 
 
 });
