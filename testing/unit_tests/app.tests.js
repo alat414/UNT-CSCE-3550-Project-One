@@ -135,6 +135,4 @@ describe('app.js - Authentication middleware', () =>
             .get('/post')
             .expect(401);
     });
-
-
 });
