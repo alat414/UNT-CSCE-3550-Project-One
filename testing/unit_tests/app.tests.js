@@ -138,14 +138,14 @@ describe('app.js - Authentication middleware', () =>
             .set('Authorization', `Bearer ${token}`)
             .expect(200);
 
-        expect((Array.isArray(posts)).toBe(true));
+        expect((Array.isArray(response.body)).toBe(true));
         expect(response.body[0].username).toBe('Nanna');
     });
 
     test('Should return 401 for malformed authorization header', async () =>
     {
         await request(app)
-            .get('/post')
+            .get('/posts')
             .set('Authorization', 'Bearer')
             .expect(401);
     });
@@ -153,7 +153,7 @@ describe('app.js - Authentication middleware', () =>
     test('Should return 401 for no authorization header', async () =>
     {
         await request(app)
-            .get('/post')
+            .get('/posts')
             .expect(401);
     });
 });
