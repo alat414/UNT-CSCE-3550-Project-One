@@ -83,7 +83,7 @@ describe('app.js - Authentication middleware', () =>
 
         const token = jwt.sign(
             { name: 'Nanna' }, 
-            'wrong-secret',
+            'some-secret',
             { 
                 expiresIn: '15s',
                 header: { kid: 'non-existent-key', alg: 'HS256' } 
@@ -97,6 +97,27 @@ describe('app.js - Authentication middleware', () =>
 
         expect(response.body.error).toBe('Key invalid');
         expect(response.body.message).toBe('Token was signed with invalid key, retry.');
+    });
+
+    test('Should return 403 for expired token', async () =>
+    {
+        keyStorage.getKey.mockReturnValue('valid-secret');
+
+        const token = jwt.sign(
+            { name: 'Nanna' }, 
+            'some-secret',
+            { 
+                expiresIn: '-10s',
+                header: { kid: 'test-key-id', alg: 'HS256' } 
+            }
+        );
+
+        const response = await request(app)
+            .get('/posts')
+            .set('Authorization', `Bearer ${token}`)
+            .expect(403);
+
+        expect(response.body.error).toBe('Token Expired');
     });
 
     test('Should return 200 with posts for valid tokens', async () =>
