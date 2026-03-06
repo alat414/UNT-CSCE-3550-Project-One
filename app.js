@@ -120,7 +120,7 @@ function authenticateToken(req, res, next)
             {
                 return res.status(403).json({ error: 'Token Expired'});
             }
-            return res.sendStatus(403).json({ error: 'Invalid Token'});
+            return res.status(403).json({ error: 'Invalid Token'});
 
         } 
         
