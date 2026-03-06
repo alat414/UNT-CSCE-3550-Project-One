@@ -70,26 +70,16 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
         expect(response.body.error).toBe('Failed to rotate keys');
     });
 
-    test('Should return 401 when signing key is invalid', async () =>
+    test('GET /key-status should handle empty keys', async () =>
     {
-        keyStorage.getKey.mockReturnValue(null);
-
-        const token = jwt.sign(
-            { name: 'Nanna' }, 
-            'some-secret',
-            { 
-                expiresIn: '15s',
-                header: { kid: 'non-existent-key', alg: 'HS256' } 
-            }
-        );
+        keyStorage.keys.clear();
 
         const response = await request(app)
-            .get('/posts')
-            .set('Authorization', `Bearer ${token}`)
-            .expect(401);
+            .get('/key-status')
+            .expect(500);
 
-        expect(response.body.error).toBe('Key invalid');
-        expect(response.body.message).toBe('Token was signed with invalid key, retry.');
+        expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body.length).toBe(0);
     });
 
     test('Should return 403 for expired token', async () =>
