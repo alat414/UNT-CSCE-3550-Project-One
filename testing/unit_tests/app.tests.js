@@ -105,7 +105,7 @@ describe('app.js - Authentication middleware', () =>
 
         const token = jwt.sign(
             { name: 'Nanna' }, 
-            'some-secret',
+            'valid-secret',
             { 
                 expiresIn: '-10s',
                 header: { kid: 'test-key-id', alg: 'HS256' } 
