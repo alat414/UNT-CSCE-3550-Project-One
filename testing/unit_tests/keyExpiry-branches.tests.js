@@ -143,13 +143,18 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
         expect(response.body).toHaveProperty('accessToken');
     });
 
-    test('GET /key-status should handle empty keys', async () =>
+    test('POST /rotate-keys should work with valid input', async () =>
     {
+        keyStorage.generateNewKey.mockReturnValue('new-key-id');
+        keyStorage.removeExpiredKeys.mockReturnValue(1);
+
         const response = await request(app)
-            .get('/key-status')
+            .post('/rotate-keys')
+            .send({ expiresIn: 1 })
             .expect(200);
 
-        expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body.success).toBe(true);
+        expect(response.body).toHaveProperty('newKeyID');
     });
 
 });
