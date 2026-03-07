@@ -10,24 +10,24 @@
 
 const request = require('supertest'); 
 const { app } = require('../../keyExpiry'); 
-const keyStorage = require('../../keyStorage');
 const jwt = require('jsonwebtoken');
 
-jest.mock('../../keyStorage',()  => 
-    ({
-        generateNewKey: jest.fn(),
-        getCurrentKey: jest.fn(),
-        getCurrentKeyID: jest.fn(),
-        getKey: jest.fn(),
-        removeExpiredKeys: jest.fn(),
-        keys:
-        {
-            size: 0,
-            values: jest.fn().mockReturnValue([]),
-            [Symbol.iterator]: jest.fn().mockReturnValue([])
-        },
-        activeKeyID: null
-    }));
+const mockKeyMap = new Map();
+
+jest.mock('../../keyStorage', ()  => 
+{
+    return {
+    generateNewKey: jest.fn(),
+    getCurrentKey: jest.fn(),
+    getCurrentKeyID: jest.fn(),
+    getKey: jest.fn(),
+    removeExpiredKeys: jest.fn(),
+    keys: mockKeyMap,
+    activeKeyID: null
+    };
+});
+
+const keyStorage = require('../../keyStorage');
 
 describe('keyExpiry.js - Branch Coverage Tests', () =>
 {
@@ -35,10 +35,14 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
     {
         jest.clearAllMocks();
 
+        mockKeyMap.clear();
+
         keyStorage.getCurrentKey.mockReturnValue('test-secret');
         keyStorage.getCurrentKeyID.mockReturnValue('test-key-id');
         keyStorage.generateNewKey.mockReturnValue('new-key-id');
         keyStorage.removeExpiredKeys.mockReturnValue(0);
+
+        keyStorage.activeKeyID = null;
     });
 
     test('POST /token should handle invalid refresh token', async () =>
@@ -88,6 +92,7 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
             .expect(200);
 
         expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body.length).toBe(0);
     });
 
     test('Function generateToken should handle missing key', async () =>
@@ -100,29 +105,31 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
             .expect(500)
             .then(response => 
             {
-                expect(response.body.error).toBe('No Key Available');
+                expect(response.body.error).toBe('No key available');
             });
     });
 
     test('GET /key-status should handle keys with different states', async () =>
     {
-        const mockKeys =
+        const mockKey =
         [{
             kid: 'key1',
             createdAt: new Date(),
-            expiresIn: new Date(),
+            expiresIn: new Date(Date.now() + 86400000),
             isActive: true,
             isCurrent: true,
             expired: false
         }];
 
-        keyStorage.keys[Symbol.iterator] = jest.fn().mockReturnValue(mockKeys.entries());
+        mockKeyMap.set('key1', mockKey);
 
         const response = await request(app)
             .get('/key-status')
             .expect(200);
 
         expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body.length).toBe(1);
+        expect(response.body[0].kid).toBe('key1');
     });
 
     test('POST /token should work with valid refresh token', async () =>
@@ -148,6 +155,15 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
         keyStorage.generateNewKey.mockReturnValue('new-key-id');
         keyStorage.removeExpiredKeys.mockReturnValue(1);
 
+        const mockKeyData =
+        {
+            id: 'new-key-id',
+            expiresIn: new Date(Date.now() + 86400000)
+        };
+
+        mockKeyMap.set('new-key-id', mockKeyData);
+        keyStorage.activeKeyID = 'new-key-id';
+
         const response = await request(app)
             .post('/rotate-keys')
             .send({ expiresInDays: 1 })
@@ -155,6 +171,7 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
 
         expect(response.body.success).toBe(true);
         expect(response.body).toHaveProperty('newKeyID');
+        expect(response.body.newKeyID).toBe('new-key-Iid');
     });
 
 });
