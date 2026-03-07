@@ -34,11 +34,16 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
     beforeEach(() => 
     {
         jest.clearAllMocks();
+
+        keyStorage.getCurrentKey.mockReturnValue('test-secret');
+        keyStorage.getCurrentKeyID.mockReturnValue('test-key-id');
+        keyStorage.generateNewKey.mockReturnValue('new-key-id');
+        keyStorage.removeExpiredKeys.mockReturnValue(0);
     });
 
     test('POST /token should handle invalid refresh token', async () =>
     {
-        jest.spyOn(require('jsonwebtoken'), 'verify').mockImplementationOnce((token, secret, cb) =>
+        jest.spyOn(jwt, 'verify').mockImplementationOnce((token, secret, cb) =>
         {
             cb(new Error('Invalid token'), null);
         })
