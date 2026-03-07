@@ -100,7 +100,7 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
             .expect(500)
             .then(response => 
             {
-                expect(Array.isArray(response.body)).toBe(true);
+                expect(response.body).toBe('No Key Available');
             });
     });
 
@@ -150,7 +150,7 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
 
         const response = await request(app)
             .post('/rotate-keys')
-            .send({ expiresIn: 1 })
+            .send({ expiresInDays: 1 })
             .expect(200);
 
         expect(response.body.success).toBe(true);
