@@ -104,13 +104,43 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
             });
     });
 
-    test('GET /key-status should handle keys', async () =>
+    test('GET /key-status should handle keys with different states', async () =>
     {
-        
+        const mockKeys =
+        [{
+            kid: 'key1',
+            createdAt: new Date(),
+            expiresIn: new Date(),
+            isActive: true,
+            isCurrent: true,
+            expired: false
+        }];
+
+        keyStorage.keys[Symbol.iterator] = jest.fn().mockReturnValue(mockKeys.entries());
+
         const response = await request(app)
             .get('/key-status')
             .expect(200);
 
         expect(Array.isArray(response.body)).toBe(true);
     });
+
+    test('GET /key-status should handle empty keys', async () =>
+    {
+        const response = await request(app)
+            .get('/key-status')
+            .expect(200);
+
+        expect(Array.isArray(response.body)).toBe(true);
+    });
+
+    test('GET /key-status should handle empty keys', async () =>
+    {
+        const response = await request(app)
+            .get('/key-status')
+            .expect(200);
+
+        expect(Array.isArray(response.body)).toBe(true);
+    });
+
 });
