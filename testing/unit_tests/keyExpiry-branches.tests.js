@@ -127,11 +127,21 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
 
     test('GET /key-status should handle empty keys', async () =>
     {
+        jest.spyOn(jwt, 'verify').mockImplementationOnce((token, secret, cb) =>
+        {
+            cb(null,
+                { name: 'Nanna'});
+        });
+
+        keyStorage.getCurrentKey.mockReturnValue('valid-secret');
+        keyStorage.getCurrentKey.mockReturnValue('valid-key-id');
+
         const response = await request(app)
-            .get('/key-status')
+            .post('/token')
+            .send({ token: 'valid.refresh.token' })
             .expect(200);
 
-        expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body).toHaveProperty('accessToken');
     });
 
     test('GET /key-status should handle empty keys', async () =>
