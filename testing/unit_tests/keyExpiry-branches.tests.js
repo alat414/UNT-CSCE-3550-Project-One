@@ -56,7 +56,7 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
 
     test('POST /login should handle no key available', async () =>
     {
-        keyStorage.getKey.mockReturnValue(null);
+        keyStorage.getCurrentKey.mockReturnValue(null);
 
         const response = await request(app)
             .post('/login')
@@ -94,9 +94,22 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
     {
         keyStorage.getCurrentKey.mockReturnValue(null);
 
-        expect(() => 
-        {
-            const { generateToken } = require('../../keyExpiry');
-        }).not.toThrow();
+        return request(app)
+            .post('/login')
+            .send({ username: 'Nanna' })
+            .expect(500)
+            .then(response => 
+            {
+                expect(Array.isArray(response.body)).toBe(true);
+            });
+    });
+
+    test('GET /key-status should handle keys', async () =>
+    {
+        const response = await request(app)
+            .get('/key-status')
+            .expect(200);
+
+        expect(Array.isArray(response.body)).toBe(true);
     });
 });
