@@ -100,7 +100,7 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
             .expect(500)
             .then(response => 
             {
-                expect(response.body).toBe('No Key Available');
+                expect(response.body.error).toBe('No Key Available');
             });
     });
 
