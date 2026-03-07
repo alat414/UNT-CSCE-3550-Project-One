@@ -10,7 +10,8 @@
 
 const request = require('supertest'); 
 const { app } = require('../../keyExpiry'); 
-const keyStorage = require('../../keyStorage'); 
+const keyStorage = require('../../keyStorage');
+const jwt = require('jsonwebtoken');
 
 jest.mock('../../keyStorage',()  => 
     ({
@@ -19,7 +20,12 @@ jest.mock('../../keyStorage',()  =>
         getCurrentKeyID: jest.fn(),
         getKey: jest.fn(),
         removeExpiredKeys: jest.fn(),
-        keys: jest.fn(),
+        keys:
+        {
+            size: 0,
+            values: jest.fn().mockReturnValue([]),
+            [Symbol.iterator]: jest.fn().mockReturnValue([])
+        },
         activeKeyID: null
     }));
 
