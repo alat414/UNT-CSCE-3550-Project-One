@@ -148,6 +148,13 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
         keyStorage.generateNewKey.mockReturnValue('new-key-id');
         keyStorage.removeExpiredKeys.mockReturnValue(1);
 
+        keyStorage.keys.get = jest.fn().mockReturnValue({
+            id: 'new-key-id',
+            expiresIn: new Date()
+        });
+
+        keyStorage.keys[Symbol.iterator] = jest.fn().mockReturnValue([][Symbol.iterator]());
+
         const response = await request(app)
             .post('/rotate-keys')
             .send({ expiresInDays: 1 })
