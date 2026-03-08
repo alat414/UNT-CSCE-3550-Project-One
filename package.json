@@ -19,6 +19,7 @@
   "main": "keyExpiry.js",
   "scripts": 
   {
+    "start": "node keyExpiry.js",
     "devStart": "nodemon app.js",
     "devStart2": "nodemon keyExpiry.js",
     "test": "jest",
