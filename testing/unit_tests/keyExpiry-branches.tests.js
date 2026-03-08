@@ -34,6 +34,8 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
     {
         jest.clearAllMocks();
 
+        jest.spyOn(console, 'error').mockImplementation(() => {});
+
         keyStorage.getCurrentKey.mockReturnValue('test-secret');
         keyStorage.getCurrentKeyID.mockReturnValue('test-key-id');
         keyStorage.generateNewKey.mockReturnValue('new-key-id');
@@ -163,5 +165,10 @@ describe('keyExpiry.js - Branch Coverage Tests', () =>
         expect(response.body.success).toBe(true);
         expect(response.body).toHaveProperty('newKeyID');
     });
+
+    afterAll(() => 
+    {
+        jest.restoreAllMocks();
+    })
 
 });
