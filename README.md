@@ -1,8 +1,11 @@
 "#UNT-CSCE-Project-One" 
 # 🚀 Project Name
 
-A brief one-liner about what your project does and who it's for.
+A RESTful JWKS server that authenticates two users for obtaining login credentials and 
+rejecting those without authentication.
 
+The server uses the following: JSON web tokens (JWTs), running on HTTPS 8080, and key ids. 
+Additionally, it includes tests and test suites to ensure the server is free of bugs. 
 ## 📸 Demo
 
 ![Demo GIF](https://your-demo-link.com/demo.gif)  
@@ -13,9 +16,9 @@ A brief one-liner about what your project does and who it's for.
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/project-name.git
-cd project-name
-pip install -r requirements.txt
+git clone https://github.com/alat414/UNT-CSCE-3550-Project-One
+cd ProjectOne
+pip 
 ```
 
 ## 🛠 Usage
@@ -23,13 +26,14 @@ pip install -r requirements.txt
 Run the app:
 
 ```bash
-python main.py
+npm start
 ```
+use request.rest file to simulate the server. 
 
 Example command or input/output:
 
 ```bash
-$ python main.py --mode test
+$ npm run test:coverage
 >> Running test mode...
 ```
 
@@ -42,10 +46,7 @@ $ python main.py --mode test
 
 ## 🧰 Tech Stack
 
-- Python 3.11
-- Flask
-- SQLite
-- Bootstrap
+- Javascript
 
 ## 🤝 Contributing
 
@@ -53,70 +54,10 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 📄 License
 
-MIT License  
-See `LICENSE` file for details.
+None
 
 ## 🙌 Credits
 
-Inspired by [SomeProject](https://github.com/example)  
-Thanks to [@contributor](https://github.com/contributor) for feedback and suggestions.# 🚀 Project Name
+Inspired by [Web Developer Simplified](https://github.com/WebDevSimplified)  
 
-A brief one-liner about what your project does and who it's for.
-
-## 📸 Demo
-
-![Demo GIF](https://your-demo-link.com/demo.gif)  
-[Live Site](https://your-live-site.com)
-
-## 📦 Installation
-
-Clone the repo and install dependencies:
-
-```bash
-git clone https://github.com/yourusername/project-name.git
-cd project-name
-pip install -r requirements.txt
-```
-
-## 🛠 Usage
-
-Run the app:
-
-```bash
-python main.py
-```
-
-Example command or input/output:
-
-```bash
-$ python main.py --mode test
->> Running test mode...
-```
-
-## ✨ Features
-
-- Fast and lightweight
-- Clean UI with dark mode
-- Realtime updates
-- Works offline
-
-## 🧰 Tech Stack
-
-- Python 3.11
-- Flask
-- SQLite
-- Bootstrap
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
-
-## 📄 License
-
-MIT License  
-See `LICENSE` file for details.
-
-## 🙌 Credits
-
-Inspired by [SomeProject](https://github.com/example)  
-Thanks to [@contributor](https://github.com/contributor) for feedback and suggestions.
+Introductory video on JWK servers using json web tokens. 
